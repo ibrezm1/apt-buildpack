@@ -279,6 +279,7 @@ func (a *Apt) InstallAll() error {
 
 func (a *Apt) install(pkg string) error {
 	output, err := a.command.Output("/", "dpkg", "-x", filepath.Join(a.archiveDir, pkg), a.installDir)
+	a.logger.Info("Installing " + pkg + " from " + a.installDir)
 	a.logger.Info(output)
 	if err != nil {
 		return fmt.Errorf("failed to install pkg %s\n\n%s\n\n%s", pkg, output, err.Error())
