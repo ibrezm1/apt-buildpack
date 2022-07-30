@@ -252,6 +252,7 @@ func (a *Apt) DownloadAll() error {
 	// download all repo packages in one invocation
 	aptArgs := append(a.options, "-y", "--allow-downgrades", "--allow-remove-essential", "--allow-change-held-packages", "-d", "install", "--reinstall")
 	args := append(aptArgs, repoPackages...)
+	fmt.Print("Running command %v",args)
 	out, err := a.command.Output("/", "apt-get", args...)
 	a.logger.Info(out)
 	if err != nil {
