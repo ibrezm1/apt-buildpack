@@ -252,7 +252,7 @@ func (a *Apt) DownloadAll() error {
 	// download all repo packages in one invocation
 	aptArgs := append(a.options, "-y", "--allow-downgrades", "--allow-remove-essential", "--allow-change-held-packages", "-d", "install", "--reinstall")
 	args := append(aptArgs, repoPackages...)
-	fmt.Print("Running command %v",args)
+	a.logger.Info("Running command %v",args)
 	out, err := a.command.Output("/", "apt-get", args...)
 	a.logger.Info(out)
 	if err != nil {
@@ -280,7 +280,7 @@ func (a *Apt) InstallAll() error {
 func (a *Apt) install(pkg string) error {
 	output, err := a.command.Output("/", "dpkg", "-x", filepath.Join(a.archiveDir, pkg), a.installDir)
 	a.logger.Info("Installing " + pkg + " from " + a.installDir)
-	a.logger.Info("Executing command :/" +  "dpkg" +  "-x" +  filepath.Join(a.archiveDir, pkg) +  a.installDir)
+	a.logger.Info("Executing command :/" +  " dpkg" +  " -x " +  filepath.Join(a.archiveDir, pkg) + " " + a.installDir)
 	a.logger.Info("Recevived Output :" +  output)
 	if err != nil {
 		return fmt.Errorf("failed to install pkg %s\n\n%s\n\n%s", pkg, output, err.Error())
