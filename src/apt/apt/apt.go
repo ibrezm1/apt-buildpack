@@ -254,7 +254,7 @@ func (a *Apt) DownloadAll() error {
 	args := append(aptArgs, repoPackages...)
 	a.logger.Info("Running command with apt-get %v",args)
 	out, err := a.command.Output("/", "apt-get", args...)
-	a.logger.Info(out)
+	a.logger.Info("Received output:" + out)
 	if err != nil {
 		return fmt.Errorf("failed apt-get install %s\n\n%s", out, err)
 	}
